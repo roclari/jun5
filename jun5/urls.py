@@ -6,8 +6,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('templates/details/', views.details, name='details'),
-    path('templates/create/', views.create, name='create'),
-    path('templates/edit/', views.edit, name='edit'),
-    path('templates/delete/', views.delete, name='delete'),
+    path('evento/<int:evento_id>/', views.details, name='details'),
+    path('evento/criar/', views.create, name='create'),
+    path('evento/<int:evento_id>/editar/', views.edit, name='edit'),
+    path('evento/<int:evento_id>/excluir/', views.delete, name='delete'),
 ]

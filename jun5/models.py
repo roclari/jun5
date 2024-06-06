@@ -8,7 +8,7 @@ class Jun5Model(models.Model):
     data_inicio = models.DateTimeField()
     data_fim = models.DateTimeField()
     local = models.CharField(max_length=100)
-    criador = models.ForeignKey(User, on_delete=models.CASCADE)
+    criador = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.titulo

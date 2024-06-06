@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Jun5 Eventos</title>
-</head>
-<body>
-    <h1>Jun5 Eventos</h1>
+{% extends 'base.html' %}
+
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+    <h2>Próximos Eventos</h2>
     <ul>
         {% for evento in eventos %}
-            <li>{{ evento.titulo }}: {{ evento.descricao }}</li>
+            <li>
+                <a href="{% url 'details' evento.id %}">{{ evento.titulo }}</a> - {{ evento.data_inicio }}
+            </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}
