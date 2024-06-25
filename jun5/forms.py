@@ -1,10 +1,20 @@
 from django import forms
-from .models import Jun5Model
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from .models import Evento
 
 
-class Jun5ModelForm(forms.ModelForm):
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
     class Meta:
-        model = Jun5Model
+        model = User
+        fields = ['username', 'password1', 'password2']
+
+
+class EventoForm(forms.ModelForm):
+    class Meta:
+        model = Evento
         fields = ['titulo', 'descricao', 'data_inicio', 'data_fim', 'local']
 
     def clean(self):

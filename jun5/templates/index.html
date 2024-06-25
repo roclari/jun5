@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Página Inicial{% endblock %}
-
 {% block content %}
-    <h2>Próximos Eventos</h2>
+    <h2>Eventos</h2>
+    <a href="{% url 'create' %}">Criar Novo Evento</a>
     <ul>
         {% for evento in eventos %}
             <li>
-                <a href="{% url 'details' evento.id %}">{{ evento.titulo }}</a> - {{ evento.data_inicio }}
+                {{ evento.titulo }} - {{ evento.data_inicio }} - {{ evento.local }}
+                <a href="{% url 'edit' evento.id %}">Editar</a>
+                <form action="{% url 'delete' evento.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Deletar</button>
+                </form>
             </li>
         {% endfor %}
     </ul>
