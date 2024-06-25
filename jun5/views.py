@@ -2,15 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import *
-from .forms import EventoForm
+from .forms import EventoForm, UserRegisterForm
 
 
 def index(request):
-    eventos = Evento.objects.filter(data_inicio__gte=timezone.now()).order_by('data_inicio')
+    eventos = Evento.objects.all()
+    print(f"Eventos encontrados: {eventos.count()}")
     return render(request, 'index.html', {'eventos': eventos})
 
 
@@ -21,9 +21,14 @@ def user_signup(request):
             user = signup.save()
             raw_password = signup.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
-            login(request, user)
-            messages.success(request, f'Account created for {user.username}!')
-            return redirect('index')
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'Conta criada para {user.username}!')
+                return redirect('index')
+            else:
+                messages.error(request, 'Erro na autenticação do usuário.')
+        else:
+            messages.error(request, 'Erro no formulário de inscrição: {}'.format(signup.errors))
     else:
         signup = UserRegisterForm()
     return render(request, 'register/signup.html', {'signup': signup})
@@ -38,20 +43,19 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f'You are now logged in as {username}.')
                 return redirect('index')
             else:
-                messages.error(request, 'Invalid username or password.')
+                messages.error(request, 'Usuário e/ou senha inválida. {}'.format(log_in.errors))
         else:
-            messages.error(request, 'Invalid username or password.')
+            for error in log_in.non_field_errors():
+                messages.error(request, error)
     log_in = AuthenticationForm()
-    return render(request, 'register/login.html', {'form': log_in})
+    return render(request, 'register/login.html', {'log_in': log_in})
 
 
 def user_logout(request):
     logout(request)
-    messages.info(request, 'You have successfully logged out.')
-    return redirect('home')
+    return render(request, 'register/logout.html', {'logout': logout})
 
 
 def details(request, evento_id):
@@ -59,7 +63,7 @@ def details(request, evento_id):
     return render(request, 'details.html', {'evento': evento})
 
 
-@login_required()
+@login_required(login_url='/login/')
 def create(request):
     if request.method == 'POST':
         criar_evento = EventoForm(request.POST)

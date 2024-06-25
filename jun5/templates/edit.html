@@ -19,7 +19,7 @@
         <label for="local">Local:</label>
         <input type="text" id="local" name="local" value="{{ form.local.value|default_if_none:'' }}" required><br>
 
-        <button type="submit">{% if form.instance.pk %}Atualizar{% endif %}</button>
+        <button type="submit">Atualizar</button>
     </form>
     <a href="{% url 'index' %}">Voltar</a>
 {% endblock %}

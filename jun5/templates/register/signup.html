@@ -7,23 +7,29 @@
     {% if error %}
         <p style="color: red;">{{ error }}</p>
     {% endif %}
-    <form method="post">
+    <form method="post" id="signUp">
         {% csrf_token %}
-        <label for="usuario">Usuário:</label>
-        <input type="text" name="criador" id="usuario" required>
-        <label for="senha">Senha:</label>
-        <input type="password" name="senha1" id="senha" required>
-        <label for="senha">Confirme sua senha:</label>
-        <input type="password" name="senha2" id="senha" required>
+        <label for="username">Usuário:</label>
+        <input type="text" name="username" id="username" value="{{ signup.username.value|default_if_none:'' }}" required>
+        {{ signup.username.errors }}
+
+        <label for="password1">Senha:</label>
+        <input type="password" name="password1" id="password1" required>
+        {{ signup.password1.errors }}
+
+        <label for="password2">Confirme sua senha:</label>
+        <input type="password" name="password2" id="password2" required>
+        {{ signup.password2.errors }}
+
         <button type="submit">Cadastrar</button>
     </form>
 
     <script>
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-            const senha1 = document.getElementById('senha1').value;
-            const senha2 = document.getElementById('senha2').value;
+        document.getElementById('signUp').addEventListener('submit', function(event) {
+            const password1 = document.getElementById('password1').value;
+            const password2 = document.getElementById('password2').value;
 
-            if (senha1 !== senha2) {
+            if (password1 !== password2) {
                 event.preventDefault();
                 alert('As senhas não coincidem. Por favor, verifique novamente.');
             }

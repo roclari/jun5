@@ -8,7 +8,7 @@
             <li>
                 {{ evento.titulo }} - {{ evento.data_inicio }} - {{ evento.local }}
                 <a href="{% url 'edit' evento.id %}">Editar</a>
-                <form action="{% url 'delete' evento.id %}" method="post" style="display:inline;">
+                <form action="{% url 'delete' evento.id %}" method="post" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit">Deletar</button>
                 </form>

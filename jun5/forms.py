@@ -5,8 +5,6 @@ from .models import Evento
 
 
 class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
-
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
