@@ -73,8 +73,10 @@ def create(request):
             evento.save()
             messages.success(request, 'Evento criado com sucesso!')
             return redirect('index')
-    else:
-        criar_evento = EventoForm()
+        else:
+            error_message = ' '.join([str(error) for error_list in criar_evento.errors.values() for error in error_list])
+            messages.error(request, 'Erro ao criar evento. {}'.format(error_message))
+    criar_evento = EventoForm()
     return render(request, 'create.html', {'criar_evento': criar_evento})
 
 
