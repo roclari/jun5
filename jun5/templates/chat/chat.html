@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+<h1>Chat</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+<form action="" onsubmit="sendMessage()">
+    <label>ID: <input type="text" id="itemId" autocomplete="off" value="id"/></label>
+    <label>Token: <input type="text" id="token" autocomplete="off" value="token"/></label>
+    <button onclick="connect()">Conectar</button>
+    <hr>
+    <label>Mensagem:<input type="text" id="messageText" autocomplete="off"/></label>
+    <button>Enviar</button>
+</form>
+<ul id='messages'>
+</ul>
+
+{% endblock %}
+
+<script type="text/javascript" src="{% static 'script.js' %}"></script>

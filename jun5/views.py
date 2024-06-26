@@ -10,7 +10,6 @@ from .forms import EventoForm, UserRegisterForm
 
 def index(request):
     eventos = Evento.objects.all()
-    print(f"Eventos encontrados: {eventos.count()}")
     return render(request, 'index.html', {'eventos': eventos})
 
 
@@ -101,3 +100,9 @@ def delete(request, evento_id):
         messages.success(request, 'Evento deletado com sucesso!')
         return redirect('index')
     return render(request, 'delete.html', {'evento': evento})
+
+
+# chat
+
+def chat_view(request):
+    return render(request, 'chat/chat.html')
