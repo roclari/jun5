@@ -7,19 +7,19 @@
     <form method="post">
         {% csrf_token %}
         <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" value="{{ form.titulo.value|default_if_none:'' }}" required><br>
+        <input type="text" id="titulo" name="titulo" value="{{ editar_evento.titulo.value|default_if_none:'' }}" required><br>
 
         <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" required>{{ form.descricao.value|default_if_none:'' }}</textarea><br>
+        <textarea id="descricao" name="descricao" required>{{ editar_evento.descricao.value|default_if_none:'' }}</textarea><br>
 
         <label for="data_inicio">Data de Início:</label>
-        <input type="datetime-local" id="data_inicio" name="data_inicio" value="{{ form.data_inicio.value|default_if_none:'' }}" required><br>
+        <input type="datetime-local" id="data_inicio" name="data_inicio" value="{{ editar_evento.data_inicio.value|default_if_none:'' }}" required><br>
 
         <label for="data_fim">Data de Fim:</label>
-        <input type="datetime-local" id="data_fim" name="data_fim" value="{{ form.data_fim.value|default_if_none:'' }}" required><br>
+        <input type="datetime-local" id="data_fim" name="data_fim" value="{{ editar_evento.data_fim.value|default_if_none:'' }}" required><br>
 
         <label for="local">Local:</label>
-        <input type="text" id="local" name="local" value="{{ form.local.value|default_if_none:'' }}" required><br>
+        <input type="text" id="local" name="local" value="{{ editar_evento.local.value|default_if_none:'' }}" required><br>
 
         <button type="submit">Atualizar</button>
     </form>
