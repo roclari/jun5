@@ -13,12 +13,14 @@
         <input type="text" name="username" id="username" value="{{ signup.username.value|default_if_none:'' }}" required>
         {{ signup.username.errors }}
 
+        <br><br><div id="error-message" class="error"></div><br>
+
         <label for="password1">Senha:</label>
-        <input type="password" name="password1" id="password1" required>
+        <input type="password" name="password1" id="password1" required><br><br>
         {{ signup.password1.errors }}
 
         <label for="password2">Confirme sua senha:</label>
-        <input type="password" name="password2" id="password2" required>
+        <input type="password" name="password2" id="password2" required><br><br>
         {{ signup.password2.errors }}
 
         <button type="submit">Cadastrar</button>
@@ -31,8 +33,10 @@
 
             if (password1 !== password2) {
                 event.preventDefault();
-                alert('As senhas não coincidem. Por favor, verifique novamente.');
+                document.getElementById("error-message").innerText = 'As senhas não coincidem. Por favor, verifique novamente.';
+            return false;
             }
-        });
+        return true;
+    });
     </script>
 {% endblock %}
