@@ -75,6 +75,7 @@ form label {
 
 form input[type="text"],
 form input[type="datetime-local"],
+form input[type="password"],
 form textarea {
     width: calc(100% - 20px);
     padding: 10px;
