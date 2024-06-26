@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}Evento: {{ evento.titulo }}{% endblock %}
+
 {% block content %}
     <h2>{{ evento.titulo }}</h2>
     <p>{{ evento.descricao }}</p>
